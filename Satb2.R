@@ -18,19 +18,19 @@ library(RColorBrewer)
 
 
 
-#读取全脑数据
+#Whole brain data read
 scRNA <- readRDS("/public/home/liyu/stereo_seq/output_7.0/houxufenxi_xiayouwenjian/sterepy_1_qc_norm_log1p/output/seurat_1_final.rds")
 scRNA.metadata <- scRNA@meta.data
 
-#根据坐标位置区分野生型与突变体
+#Distinguish the wild-type from the mutant according to the coordinate position
 scRNA.metadata[which(scRNA.metadata$y > 12500),'group'] <- 'wt'
 scRNA.metadata[which(scRNA.metadata$y < 13000),'group'] <- 'mutant'
 
-#突变体
+#mutant
 satb2.mutant <- subset(scRNA,group == "mutant")
 satb2.mutant.metadata <- satb2.mutant@meta.data
 
-#野生型
+#wt
 satb2.wt <- subset(scRNA,group == "wt")
 satb2.wt.metadata <- satb2.wt@meta.data
 
@@ -45,14 +45,14 @@ p <- DimPlot(satb2.wt, reduction = "umap", group.by = c("spatial_leiden", "group
 
 
 
-#读取皮层数据
+#cortex data read
 cortex <- readRDS("/public/home/liyu/stereo_seq/output_7.0/houxufenxi_xiayouwenjian/sterepy_1_qc_norm_log1p/output/cortex.rds")
 
-#野生型
+#wt
 cortex_wt <- subset(cortex,group == "wt")
 cortex_wt.metadata <- cortex_wt@meta.data
 
-#突变体
+#mutant
 cortex_mutant <- subset(cortex,group == "mutant")
 cortex_mutant.metadata <- cortex_mutant@meta.data
 
